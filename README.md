@@ -58,4 +58,65 @@ Step 4:
 ![image]()
 
 Opening the firewall
+- To open that firewall connection, lets go to DC-1 VM via remote desktop
+- Once the DC-1 VM is open, type wf.msc to the search bar
+- Sort by protocol and find ICMPv4
+- Enable the rule for the two rules that state "Core Networking Diagnostics ICMP"
+- Go back to client-1 VM and see it ping and display a connection between client-1 and DC-1
+- Hitting control and C in the CMD it will stop the constant pinging
 
+Step 5:
+
+![image]()
+
+Installing Active Directory
+- Now we got to install active directory by going to DC-1 VM and under server manger go to add roles and features
+- Make sure under server roles you select "Active Directory Domain Services"
+- After installation is complete, you got to the flag in the top right and hit promote to finalize the process
+- Hit add a new forest and label it as mydomain.com
+- Password can be Password1
+- After going through the installation, its going to restart and you have to reconnect to DC-1 VM again via remote desktop
+
+Step 6:
+
+![image]()
+
+Admin account and folders
+- Since we turn the DC-1 VM as a domain controller when logging in we have to use username as "mydomain.com\labuser" or the \username created and the password is the same as it was created in the VM setup
+- Login and hit the search for active directory users and computers
+- Create two folders by right clicking mydomain.com folder and select new then organization unit.
+- Label them _ADMINS and _EMPLOYEES
+- Create a user called jane doe and make the password to never expire then right click on the user and hit properties and under member of tab then hit add and type domain and check names from there select domain admins and apply
+- Log out of DC-1 and log back in as mydomain.com\jane_admin
+- Once logged as Jane, you can look at the CMD and type "whoami" to show that you are logged as jane_admin
+
+Step 7:
+
+![image]()
+
+Client-1 connection to the domain
+- Go to azure and copy DC-1 private IP address then go to client-1 and click network interface under networking then DNS server tab and hit custom and paste DC-1 private IP address there
+- Once clicking save is done, we can restart client-1 in azure
+- Relog into client-1 go to CMD and ipconfig/all you can then see that the DNS server IP address is the same as DC-1 private IP
+- Now we can right click on start and hit system from there hit rename this PC(advanced) then change and check domain and type out the domain as mydomain.com then type the username and password as mydomain.com\jane_admin and password as the one created in DC-1
+- After a restart of client-1 VM, as client 1 is a member of the domain we can login as mydomain.com\jane_admin
+- Once login go to system then remote desktop and select users at the bottom 
+- Hit add then type "domain users" and hit check names then ok
+- Now go back to DC-1 VM and open active directory users and computers
+- Click on the "computers" folder
+- Verify Client-1 shows up in there
+
+Step 8:
+
+![image]()
+
+Adding new users
+- Now in DC-1 VM open Powershell ISE as administrator 
+- Create a new file and paste a script provided here: https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1 
+- Then run the script with the play button
+- While the accounts are creating go to the _EMPLOYEES folder and copy a random one and go to client 1 vm and attempt to log in as that random user
+- If you go to the C: then users you can see the users log into that computer forexample client 1
+- Now log out and find a new user from DC-1 and copy their display name as we will attempt to show what happens when someone logs in and fails too many times
+- Then go into DC-1 and right click on the user and hit reset password and make a new password but also check unlock account, you can also go to properties by right clicking and then account and hit unlock
+- You can also right click and disable account and then try to log in and you'll get an error 
+- Then right click and re-enable the account
