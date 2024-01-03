@@ -22,7 +22,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 Step 1:
 
-![image]()
+![image](https://i.imgur.com/zmUeU34.jpg)
 
 Creating the domain controller virtual machine
 - Navigate to https://portal.azure.com/ and create a VM and label it as DC-1 as the domain controller
@@ -34,7 +34,7 @@ Creating the domain controller virtual machine
 
 Step 2:
 
-![image]()
+![image](https://i.imgur.com/EmWrF9P.jpg)
 
 Creating the client VM
 - Create a new VM and label it as Client-1
@@ -45,7 +45,7 @@ Creating the client VM
 
 Step 3:
 
-![image]()
+![image](https://i.imgur.com/SFzICM7.jpg)
 
 Testing Connections
 - Login into client-1 and ping DC-1 IP address with "ping -t" means infinite connection testing
@@ -55,7 +55,7 @@ Testing Connections
 
 Step 4:
 
-![image]()
+![image](https://i.imgur.com/bJOj3i5.jpg)
 
 Opening the firewall
 - To open that firewall connection, lets go to DC-1 VM via remote desktop
@@ -67,7 +67,7 @@ Opening the firewall
 
 Step 5:
 
-![image]()
+![image](https://i.imgur.com/T18uPM9.jpg)
 
 Installing Active Directory
 - Now we got to install active directory by going to DC-1 VM and under server manger go to add roles and features
@@ -79,7 +79,7 @@ Installing Active Directory
 
 Step 6:
 
-![image]()
+![image](https://i.imgur.com/rT8VXam.jpg)
 
 Admin account and folders
 - Since we turn the DC-1 VM as a domain controller when logging in we have to use username as "mydomain.com\labuser" or the \username created and the password is the same as it was created in the VM setup
@@ -92,7 +92,7 @@ Admin account and folders
 
 Step 7:
 
-![image]()
+![image](https://i.imgur.com/AX8AtuP.jpg)
 
 Client-1 connection to the domain
 - Go to azure and copy DC-1 private IP address then go to client-1 and click network interface under networking then DNS server tab and hit custom and paste DC-1 private IP address there
@@ -108,14 +108,14 @@ Client-1 connection to the domain
 
 Step 8:
 
-![image]()
+![image](https://i.imgur.com/C55Oiwa.jpg)
 
 Adding new users
 - Now in DC-1 VM open Powershell ISE as administrator 
 - Create a new file and paste a script provided here: https://github.com/jasonmolinet/configure-ad/blob/main/generate-names
 - Then run the script with the play button
-- While the accounts are creating go to the _EMPLOYEES folder and copy a random one and go to client 1 vm and attempt to log in as that random user
-- If you go to the C: then users you can see the users log into that computer forexample client 1
+- While the accounts are creating go to the _EMPLOYEES folder and copy a random one and go to client 1 VM and attempt to log in as that random user
+- If you go to the C: then users you can see the users log into that computer for example client 1
 - Now log out and find a new user from DC-1 and copy their display name as we will attempt to show what happens when someone logs in and fails too many times
 - Then go into DC-1 and right click on the user and hit reset password and make a new password but also check unlock account, you can also go to properties by right clicking and then account and hit unlock
 - You can also right click and disable account and then try to log in and you'll get an error 
