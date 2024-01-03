@@ -112,7 +112,7 @@ Step 8:
 
 Adding new users
 - Now in DC-1 VM open Powershell ISE as administrator 
-- Create a new file and paste a script provided here: https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1 
+- Create a new file and paste a script provided here: https://github.com/jasonmolinet/configure-ad/blob/main/generate-names
 - Then run the script with the play button
 - While the accounts are creating go to the _EMPLOYEES folder and copy a random one and go to client 1 vm and attempt to log in as that random user
 - If you go to the C: then users you can see the users log into that computer forexample client 1
